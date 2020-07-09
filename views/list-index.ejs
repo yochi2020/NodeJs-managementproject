@@ -1,0 +1,16 @@
+
+
+<div class="list-group">
+  <a href="/" class="list-group-item list-group-item-action">ทั้งหมด</a>
+  <% if(locals.result_list){ %> 
+  <% result_list.map(result=>{%>
+    <a href="/<%=result.topic_name%>" class="list-group-item list-group-item-action"><%= result.topic_name%></a>
+  <%})%>
+  <%}else{%>
+    <% result.map(result=>{%>
+      <a href="/<%=result.topic_name%>" class="list-group-item list-group-item-action"><%= result.topic_name%></a>
+    <%})%>
+  <% } %> 
+</div>
+
+ 

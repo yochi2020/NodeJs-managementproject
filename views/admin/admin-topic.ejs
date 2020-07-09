@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Title</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  </head>
+  <body>
+    <%- include('../header') %> 
+      <div class="container">
+        <div class="row">
+            <div class="col-lg-3">
+              
+                <h3 class="text-center my-4"><i class="fa fa-user-circle" aria-hidden="true"></i> DashBoard</h3>
+                <%- include('./list-admin')%>
+            </div>
+            <div class="col-lg-9">
+                <form class="my-4" action="/admin/admin-topic" method="post">
+                    <div class="form-group">
+                        <label for="">ชื่อโปรเจค</label>
+                        <input type="text" name="topic_name" class="form-control">
+                    </div>
+                    <button type="submit"  class="btn btn-success">
+                      <i class="fa fa-floppy-o" aria-hidden="true"></i> Save
+                    </button>
+                </form>
+                <table class="table">
+                  <thead class="thead-dark">
+                    <tr>
+                      <th scope="col">Topic</th>
+                      <th scope="col">Edit</th>
+                      <th scope="col">Delete</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% result.map(result=>{%>
+                    <tr>
+                      <td>
+                         <div class="text-topic" id="topic_<%= result._id%>" ><%= result.topic_name %> </div>
+                         <input class="a a_<%=result._id%>" type="text" value="<%= result.topic_name %>" id="<%= result._id %>" style="display:none;">
+                      </td>
+                      <td>
+                        <button class="btn btn-danger <%= result._id %> submit"  style="display: none;"><i class="fa fa-floppy-o" aria-hidden="true"></i> Save</button>
+                       <button class="btn btn-primary edit_name" data-id="<%=result.topic_name %>" id="<%= result._id %>" ><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button>
+                      </td>
+                      <td>
+                        <button class="btn btn-danger delete_name" data-id="<%=result.topic_name %> " type="button" ><i class="fa fa-trash" aria-hidden="true"></i> Delete</button>
+                      </td>
+                    </tr>
+                    <%})%>
+                  </tbody>
+                </table>
+            </div>
+        </div>
+      </div>
+  </body>
+</html>
+<script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+<script>
+  $(document).ready(function(){
+    $('.edit_name').click(function(){
+      var id=$(this).attr('id')
+      var topic_name = $(this).attr('data-id')
+      
+      //clear input
+      $('.a').css('display','none')
+      $('.text-topic').css('display','block')
+      $('.edit_name').css('display','block')
+      $('.submit').css('display','none')
+      // show input by id
+      $('#'+id).css('display','block')
+      $('#topic_'+id).css('display','none')
+
+      $(this).css('display','none')
+      $('.'+id).css('display','block')
+
+      $('.submit').click(function(){
+        var topic_value=$('.a_'+id).val()
+        $.ajax({
+          type:"POST",
+          data:{id,topic_value},
+          url:'/admin/topic-edit',
+          success:function(result){
+            window.location.reload()
+          }
+        })
+      })
+      // $.ajax({
+      //   data:{data:edit_name},
+      //   url:'/admin/topic-edit',
+      //   type:"POST",
+      //   success:function(result){
+      //     window.location.reload()
+      //   }
+      // })
+
+    })
+
+    $('.delete_name').click(function(){
+      var topic_name = $(this).attr('data-id')
+      $.ajax({
+        url:'/admin/topic-delete/'+topic_name,
+        type:"GET",
+        success:function(result){
+          window.location.reload()
+        }
+      })
+    })
+  })
+</script>

@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Home</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+  </head>
+  <body style="height: 100%;">
+    <%- include('./header') %> 
+    <div class="container">
+      <div class="row my-4">
+        <div class="col-lg-3">
+          <%- include('./list-index')%>
+        </div>
+        <div class="col-lg-9">
+          <table class="table table-hover">
+            <thead class="thead-dark">
+              <tr>
+                <th scope="col">Project</th>
+                <th scope="col">Date</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% for(var result of result){%>
+                <% for (let index = 0; index < result.class.length; index++) {%>
+                  <tr>
+                    <td><a href="/view/<%=result.class[index]._id %>/<%=result.topic_name %>  "><%=result.class[index].project_name%></a></td>
+                    <td><%=result.class[index].project_date%></td>
+                  </tr>
+                <% } %> 
+              <%} %> 
+            </tbody>
+          </table>
+        </div>
+      </div>
+       
+    </div>
+    <%- include('./footer') %> 
+  </body>
+</html>

@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Title</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  </head>
+  <body>
+    <%- include('../header') %> 
+      <div class="container">
+        <div class="row">
+            <div class="col-lg-3">
+                <h3 class="text-center my-4"><i class="fa fa-user-circle" aria-hidden="true"></i> DashBoard</h3>
+                <%- include('./list-admin')%>
+            </div>
+            <div class="col-lg-9">
+                <form class="my-4" action="/admin/admin-project" method="post" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="">Topic</label>
+                        <select name="topic_name" id="" class="form-control">
+                            <% result.map(result=>{ %> 
+                            <option value="<%= result.topic_name %>"><%= result.topic_name %></option>
+                            <% }) %> 
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="">ชื่อโปรเจค</label>
+                        <input type="text" name="project_name" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="">รายละเอียด</label>
+                        <textarea class="form-control" name="project_description"  rows="8"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="">File</label>
+                        <input type="file" name="project_file" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="submit" class="btn btn-success ">
+                    </div>
+                </form>
+            </div>
+        </div>
+      </div>
+  </body>
+</html>
