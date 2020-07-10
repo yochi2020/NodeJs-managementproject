@@ -19,7 +19,7 @@ router.get('/login',(req,res)=>{
   router.post('/login',
   passport.authenticate('local', {
     failureRedirect: '/user/login', // กำหนด ถ้า login fail จะ redirect ไป /login
-    successRedirect: '/admin/admin-edit' // ถ้า success จะไป /
+    successRedirect: '/admin/admin-topic' // ถ้า success จะไป /
   }),(req,res)=>{
       
   })
@@ -44,7 +44,11 @@ passport.serializeUser((user, cb) => {
 
   passport.use(
     new LocalStrategy((username, password, cb) => {
-        console.log("eiei")
+      //เอาไว้ขึ้นhost free จะได้ไม่ต้องสร้างid ใหม่เอง
+      const newuser = new userlogin({
+        username:username,
+        password:password
+      }).save();
       userlogin.findOne({username:username }, (err, user) => {
         if (err) {
           return cb(err)

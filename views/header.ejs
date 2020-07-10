@@ -21,7 +21,8 @@
           </ul>
         </div>
         <% if(locals.user){ %> 
-            <a href="/user/logout" class="btn btn-danger right">Logout</a>
+          <a href="/admin/admin-topic" class="btn btn-primary mr-4"><i class="fa fa-user-circle" aria-hidden="true"></i> Admin</a>
+            <a href="/user/logout" class="btn btn-danger "><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a>
         <% }else{ %> 
             <a href="/user/login" class="btn btn-primary mr-3">Login</a>
         <% } %> 
